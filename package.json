@@ -12,8 +12,11 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
+    "apollo-client-preset": "^1.0.8",
     "expo": "^31.0.2",
+    "graphql": "^14.0.2",
     "react": "16.5.0",
+    "react-apollo": "^2.3.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-navigation": "^2.18.2"
   },
