@@ -34,15 +34,18 @@ class Login extends React.Component {
 
   handleSubmit = () => {
     const { email, password } = this.state;
+	this.setState({
+		emailError: false,
+		passwordError: false,
+		error: '',
+	});
     if (email.length === 0) {
       return this.setState({ emailError: true });
     }
-    this.setState({ emailError: false });
 
     if (password.length === 0) {
       return this.setState({ passwordError: true });
     }
-    this.setState({ passwordError: false });
 
     this.props
       .login(email, password)

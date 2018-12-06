@@ -33,25 +33,27 @@ class Register extends React.Component {
 
   handleSubmit = () => {
     const { email, password, confirmPassword } = this.state;
+	this.setState({
+		emailError: false,
+		passwordError: false,
+        confirmPasswordError: false,
+		error: '',
+	});
     if (email.length === 0) {
       return this.setState({ emailError: true });
     }
-    this.setState({ emailError: false });
 
     if (password.length === 0) {
       return this.setState({ passwordError: true });
     }
-    this.setState({ passwordError: false });
 
     if (confirmPassword.length === 0) {
       return this.setState({ confirmPasswordError: true });
     }
-    this.setState({ confirmPasswordError: false });
 
     if (password !== confirmPassword) {
       return this.setState({ passwordError: true, confirmPasswordError: true });
     }
-    this.setState({ passwordError: false, confirmPasswordError: false });
 
     this.props
       .signup(email, password)
