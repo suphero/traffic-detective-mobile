@@ -13,12 +13,12 @@ export const getToken = async () => {
   return token;
 };
 
-export const signIn = (newToken) => {
+export const saveToken = (newToken) => {
   token = newToken;
   return AsyncStorage.setItem(AUTH_TOKEN, newToken);
 };
 
-export const signOut = () => {
+export const removeToken = () => {
   token = undefined;
   return AsyncStorage.removeItem(AUTH_TOKEN);
 };

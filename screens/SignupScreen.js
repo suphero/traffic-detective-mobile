@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container, Button, Content, Form, Item, Input, Text } from 'native-base';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import FormMessage from '../components/FormMessage';
+import SIGNUP_MUTATION from '../graphql/signup';
+import { saveToken } from '../utilities';
 
 class Register extends React.Component {
 	static navigationOptions = {
@@ -23,22 +24,14 @@ class Register extends React.Component {
     };
   }
 
-  handleInputChange = (field, value) => {
-    const newState = {
-      ...this.state,
-      [field]: value,
-    };
-    this.setState(newState);
-  };
-
-  handleSubmit = () => {
+  handleSubmit = async() => {
     const { email, password, confirmPassword } = this.state;
-	this.setState({
-		emailError: false,
-		passwordError: false,
-        confirmPasswordError: false,
-		error: '',
-	});
+    this.setState({
+      emailError: false,
+      passwordError: false,
+      confirmPasswordError: false,
+      error: '',
+    });
     if (email.length === 0) {
       return this.setState({ emailError: true });
     }
@@ -55,21 +48,22 @@ class Register extends React.Component {
       return this.setState({ passwordError: true, confirmPasswordError: true });
     }
 
-    this.props
-      .signup(email, password)
-      .then(({ data }) => {
-        return this.props.screenProps.changeLoginState(true, data.signup.jwt);
-      })
-      .catch(e => {
-		this.setState({error: e.message});
-        // If the error message contains email or password we'll assume that's the error.
-        if (/email/i.test(e.message)) {
-          this.setState({ emailError: true });
-        }
-        if (/password/i.test(e.message)) {
-          this.setState({ passwordError: true });
-        }
-      });
+    const { navigation } = this.props;
+
+    try {
+      const { data } = await this.props.signup(email, password)
+      await saveToken(data.signup.token);
+      navigation.navigate('Main');
+    } catch (e) {
+		  this.setState({error: e.message});
+      // If the error message contains email or password we'll assume that's the error.
+      if (/email/i.test(e.message)) {
+        this.setState({ emailError: true });
+      }
+      if (/password/i.test(e.message)) {
+        this.setState({ passwordError: true });
+      }
+    }
   };
 
   render() {
@@ -79,11 +73,11 @@ class Register extends React.Component {
       <Container>
         <Content>
           <Form>
-		    <FormMessage message={error} />
+		        <FormMessage message={error} />
             <Item error={emailError}>
               <Input
                 placeholder="Email"
-                onChangeText={value => this.handleInputChange('email', value)}
+                onChangeText={email => this.setState({email})}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -92,7 +86,7 @@ class Register extends React.Component {
             <Item error={passwordError}>
               <Input
                 placeholder="Password"
-                onChangeText={value => this.handleInputChange('password', value)}
+                onChangeText={password => this.setState({password})}
                 autoCapitalize="none"
                 autoCorrect={false}
                 secureTextEntry
@@ -101,7 +95,7 @@ class Register extends React.Component {
             <Item last error={confirmPasswordError}>
               <Input
                 placeholder="Confirm Password"
-                onChangeText={value => this.handleInputChange('confirmPassword', value)}
+                onChangeText={confirmPassword => this.setState({confirmPassword})}
                 autoCapitalize="none"
                 autoCorrect={false}
                 secureTextEntry
@@ -117,17 +111,7 @@ class Register extends React.Component {
   }
 }
 
-export default graphql(
-  gql`
-    mutation SignUp($email: String!, $password: String!) {
-      signup(email: $email, password: $password) {
-        _id
-        email
-        jwt
-      }
-    }
-  `,
-  {
+export default graphql(SIGNUP_MUTATION, {
     props: ({ mutate }) => ({
       signup: (email, password) => mutate({ variables: { email, password } }),
     }),
