@@ -52,8 +52,10 @@ class Register extends React.Component {
 
     try {
       const { data } = await this.props.signup(email, password)
-      await saveToken(data.signup.token);
-      navigation.navigate('Main');
+      if (!data.signup.success) {
+        throw new Error(data.signup.message);
+      }
+      navigation.navigate('Login');
     } catch (e) {
 		  this.setState({error: e.message});
       // If the error message contains email or password we'll assume that's the error.
