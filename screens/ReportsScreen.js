@@ -12,9 +12,9 @@ import {
 import CreateScreen from './CreateScreen'
 import REPORTS_QUERY from '../graphql/reports';
 
-class HomeScreen extends React.Component {
+class ReportsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Home',
+    title: 'Reports',
   };
 
   constructor(props) {
@@ -103,4 +103,4 @@ export default graphql(REPORTS_QUERY, {
   options: {
     fetchPolicy: 'network-only',
   },
-})(HomeScreen)
+})(ReportsScreen)

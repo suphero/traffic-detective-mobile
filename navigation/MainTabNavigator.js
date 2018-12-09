@@ -3,38 +3,34 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import ReportsScreen from '../screens/ReportsScreen';
+import StatisticsScreen from '../screens/StatisticsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const ReportsStack = createStackNavigator({
+  Reports: ReportsScreen,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+ReportsStack.navigationOptions = {
+  tabBarLabel: 'Reports',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name={Platform.OS === 'ios' ? 'ios-paper' : 'md-paper'}
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const StatisticsStack = createStackNavigator({
+  Stats: StatisticsScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+StatisticsStack.navigationOptions = {
+  tabBarLabel: 'Stats',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'ios-stats' : 'md-stats'}
     />
   ),
 };
@@ -54,7 +50,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  ReportsStack,
+  StatisticsStack,
   SettingsStack,
 });
