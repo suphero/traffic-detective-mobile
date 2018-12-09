@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Button, Content, Text } from 'native-base';
 
-export default class Welcome extends React.Component {
+export default class WelcomeScreen extends React.Component {
 	static navigationOptions = {
     	title: 'Welcome',
   	};

@@ -8,9 +8,10 @@ import {
   Modal,
   StyleSheet,
   Text,
-} from 'react-native'
-import CreateScreen from './CreateScreen'
+} from 'react-native';
+import CreateScreen from './CreateScreen';
 import REPORTS_QUERY from '../graphql/reports';
+import Loading from '../components/Loading';
 
 class ReportsScreen extends React.Component {
   static navigationOptions = {
@@ -37,7 +38,7 @@ class ReportsScreen extends React.Component {
 
   render() {
     if (this.props.reportsQuery.loading) {
-      return <Text>Loading</Text>
+      return <Loading/>
     }
 
     return (

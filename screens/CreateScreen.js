@@ -10,7 +10,7 @@ import {
   TouchableHighlight,
 } from 'react-native'
 
-class CreatePage extends React.Component {
+class CreateScreen extends React.Component {
   state = {
     description: '',
     imageUrl: '',
@@ -148,4 +148,4 @@ const CREATE_POST_MUTATION = gql`
 
 export default graphql(CREATE_POST_MUTATION, {
   name: 'createPostMutation', // name of the injected prop: this.props.createPostMutation...
-})(CreatePage)
+})(CreateScreen)

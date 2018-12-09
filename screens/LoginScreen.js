@@ -8,7 +8,7 @@ import { saveToken } from '../utilities';
 import "apollo-client";
 import "graphql";
 
-class Login extends React.Component {
+class LoginScreen extends React.Component {
 	static navigationOptions = {
     	title: 'Login',
   	};
@@ -99,4 +99,4 @@ export default graphql(LOGIN_MUTATION, {
       login: (email, password) => mutate({ variables: { email, password } }),
     }),
   },
-)(Login);
+)(LoginScreen);

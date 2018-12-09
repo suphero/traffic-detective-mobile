@@ -5,7 +5,7 @@ import FormMessage from '../components/FormMessage';
 import SIGNUP_MUTATION from '../graphql/signup';
 import { saveToken } from '../utilities';
 
-class Register extends React.Component {
+class SignupScreen extends React.Component {
 	static navigationOptions = {
     	title: 'Register',
   	};
@@ -119,4 +119,4 @@ export default graphql(SIGNUP_MUTATION, {
       signup: (email, password) => mutate({ variables: { email, password } }),
     }),
   },
-)(Register);
+)(SignupScreen);
