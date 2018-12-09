@@ -1,7 +1,6 @@
 import React from 'react'
-import Post from '../components/Post'
+import Report from '../components/Report'
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
 import {
   View,
   TouchableHighlight,
@@ -11,6 +10,7 @@ import {
   Text,
 } from 'react-native'
 import CreateScreen from './CreateScreen'
+import REPORTS_QUERY from '../graphql/reports';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -23,21 +23,20 @@ class HomeScreen extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows([]),
       modalVisible: false,
-      user: undefined,
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.feedQuery.loading && !nextProps.feedQuery.error) {
+    if (!nextProps.reportsQuery.loading && !nextProps.reportsQuery.error) {
       const { dataSource } = this.state
       this.setState({
-        dataSource: dataSource.cloneWithRows(nextProps.feedQuery.allPosts),
+        dataSource: dataSource.cloneWithRows(nextProps.reportsQuery.report_user),
       })
     }
   }
 
   render() {
-    if (this.props.feedQuery.loading) {
+    if (this.props.reportsQuery.loading) {
       return <Text>Loading</Text>
     }
 
@@ -50,7 +49,7 @@ class HomeScreen extends React.Component {
         >
           <CreateScreen
             onComplete={() => {
-              this.props.feedQuery.refetch()
+              this.props.reportsQuery.refetch()
               this.setState({ modalVisible: false })
             }}
           />
@@ -59,21 +58,21 @@ class HomeScreen extends React.Component {
         <ListView
           enableEmptySections={true}
           dataSource={this.state.dataSource}
-          renderRow={post => (
-            <Post description={post.description} imageUrl={post.imageUrl} />
+          renderRow={report => (
+            <Report plate={report.plate} />
           )}
         />
         <TouchableHighlight
-          style={styles.createPostButtonContainer}
-          onPress={this._createPost}
+          style={styles.createReportButtonContainer}
+          onPress={this._createReport}
         >
-          <Text style={styles.createPostButton}>Create Post</Text>
+          <Text style={styles.createReportButton}>Create Report</Text>
         </TouchableHighlight>
       </View>
     )
   }
 
-  _createPost = () => {
+  _createReport = () => {
     // this.props.router.push('/create');
     this.setState({ modalVisible: true })
   }
@@ -84,11 +83,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 22,
   },
-  createPostButtonContainer: {
+  createReportButtonContainer: {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  createPostButton: {
+  createReportButton: {
     backgroundColor: 'rgba(39,174,96,1)',
     color: 'white',
     textAlign: 'center',
@@ -99,18 +98,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const FEED_QUERY = gql`
-  query FeedQuery {
-    feed {
-      id
-      imageUrl
-      description
-    }
-  }
-`
-
-export default graphql(FEED_QUERY, {
-  name: 'feedQuery', // name of the injected prop: this.props.feedQuery...
+export default graphql(REPORTS_QUERY, {
+  name: 'reportsQuery',
   options: {
     fetchPolicy: 'network-only',
   },

@@ -1,17 +1,38 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
+import { ApolloLink } from 'apollo-link';
 import { onError } from "apollo-link-error";
-import Root from './Root'
+import { setContext } from 'apollo-link-context';
+import Root from './Root';
+import { getToken } from './utilities';
 
 const httpLink = new HttpLink({ uri: 'http://192.168.1.244:3000/graphql' })
-const errorLink = onError(({ networkError }) => {
-  // if (networkError.statusCode === 401) {
-  //   logout();
-  // }
-  console.log(networkError);
+const authLink = setContext(async (_, { headers }) => {
+  const token = await getToken();
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? token : "",
+    }
+  }
 });
-const link = errorLink.concat(httpLink);
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    );
+
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
+const link = ApolloLink.from([
+  errorLink,
+  authLink,
+  httpLink
+]);
 
 const client = new ApolloClient({
   link,
