@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button, Content, Form, Item, Input, Text } from 'native-base';
+import { Container, Button, Content, Form, Item, Input, Text, Label } from 'native-base';
 import { graphql } from 'react-apollo';
 import FormMessage from '../components/FormMessage';
 import LOGIN_MUTATION from '../graphql/login';
@@ -66,18 +66,18 @@ class Login extends React.Component {
         <Content>
           <Form>
             <FormMessage message={error} />
-            <Item error={emailError}>
+            <Item floatingLabel error={emailError}>
+              <Label>Email</Label>
               <Input
-                placeholder="Email"
                 onChangeText={email => this.setState({email})}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
               />
             </Item>
-            <Item error={passwordError}>
+            <Item floatingLabel error={passwordError}>
+              <Label>Password</Label>
               <Input
-                placeholder="Password"
                 onChangeText={password => this.setState({password})}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -85,7 +85,7 @@ class Login extends React.Component {
               />
             </Item>
           </Form>
-          <Button full onPress={this.handleSubmit}>
+          <Button block onPress={this.handleSubmit}>
             <Text>Sign In</Text>
           </Button>
         </Content>

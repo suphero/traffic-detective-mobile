@@ -13,6 +13,10 @@ import {
 import CreateScreen from './CreateScreen'
 
 class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Home',
+  };
+
   constructor(props) {
     super(props)
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })

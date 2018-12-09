@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button, Content, Form, Item, Input, Text } from 'native-base';
+import { Container, Button, Content, Form, Item, Input, Text, Label } from 'native-base';
 import { graphql } from 'react-apollo';
 import FormMessage from '../components/FormMessage';
 import SIGNUP_MUTATION from '../graphql/signup';
@@ -55,7 +55,8 @@ class Register extends React.Component {
       if (!data.signup.success) {
         throw new Error(data.signup.message);
       }
-      navigation.navigate('Login');
+      await saveToken(data.signup.token);
+      navigation.navigate('Main');
     } catch (e) {
 		  this.setState({error: e.message});
       // If the error message contains email or password we'll assume that's the error.
@@ -76,27 +77,27 @@ class Register extends React.Component {
         <Content>
           <Form>
 		        <FormMessage message={error} />
-            <Item error={emailError}>
+            <Item floatingLabel error={emailError}>
+              <Label>Email</Label>
               <Input
-                placeholder="Email"
                 onChangeText={email => this.setState({email})}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
               />
             </Item>
-            <Item error={passwordError}>
+            <Item floatingLabel error={passwordError}>
+              <Label>Password</Label>
               <Input
-                placeholder="Password"
                 onChangeText={password => this.setState({password})}
                 autoCapitalize="none"
                 autoCorrect={false}
                 secureTextEntry
               />
             </Item>
-            <Item last error={confirmPasswordError}>
+            <Item floatingLabel error={confirmPasswordError}>
+              <Label>Confirm Password</Label>
               <Input
-                placeholder="Confirm Password"
                 onChangeText={confirmPassword => this.setState({confirmPassword})}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -104,7 +105,7 @@ class Register extends React.Component {
               />
             </Item>
           </Form>
-          <Button full onPress={this.handleSubmit}>
+          <Button block onPress={this.handleSubmit}>
             <Text>Sign Up</Text>
           </Button>
         </Content>
