@@ -1,41 +1,49 @@
 import React from 'react'
-import { graphql } from 'react-apollo'
+import { compose, graphql } from 'react-apollo'
 import {
   Text,
   View,
   TextInput,
   StyleSheet,
   TouchableHighlight,
+  ListView,
+  ScrollView
 } from 'react-native';
 import CREATE_REPORT_MUTATION from '../graphql/createReport';
+import DETAIL_TYPES_QUERY from '../graphql/detailTypes';
 import FormMessage from '../components/FormMessage';
 import CreateDetail from '../components/CreateDetail';
+import Loading from '../components/Loading';
 
 class CreateScreen extends React.Component {
-  state = {
-    plate: '',
-    details: [],
-    error: ''
+  constructor(props) {
+    super(props)
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+    this.state = {
+      plate: '',
+      details: [],
+      error: '',
+      dataSource: ds.cloneWithRows([])
+    }
   }
 
-  details = [
-    {title:'Korna', type:'HORN'},
-    {title:'Hız', type:'FAST'},
-  ];
-
-  RenderCreateDetails() {
-    return (
-      this.details.map(detail => (
-        <CreateDetail title={detail.title} key={detail.type} type={detail.type}
-          onPress={(type, checked) => this.handleDetailSelection(type, checked) }
-        />
-      ))
-    );
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.detailTypes.loading && !nextProps.detailTypes.error) {
+      const { dataSource } = this.state
+      this.setState({
+        dataSource: dataSource.cloneWithRows(nextProps.detailTypes.report_detail_types),
+      })
+      console.log(dataSource);
+    }
   }
 
   render() {
+    if (this.props.detailTypes.loading) {
+      return <Loading/>
+    }
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <TextInput
           style={styles.plateInput}
           placeholder="Type Plate..."
@@ -43,7 +51,14 @@ class CreateScreen extends React.Component {
           value={this.state.plate}
         />
         <FormMessage message={this.state.error}/>
-        {this.RenderCreateDetails()}
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={detail => (
+            <CreateDetail title={detail.name} key={detail._id} type={detail._id}
+              onPress={(type, checked) => this.handleDetailSelection(type, checked) }
+            />
+          )}
+        />
         <View style={styles.buttons}>
           <TouchableHighlight
             style={styles.cancelButton}
@@ -58,7 +73,7 @@ class CreateScreen extends React.Component {
             <Text style={styles.saveButtonText}>Create Report</Text>
           </TouchableHighlight>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 
@@ -79,6 +94,9 @@ class CreateScreen extends React.Component {
     let details = this.state.details;
     if (checked) {
       details.push(key);
+      // if(details.length > 3) {
+      //   details.shift();
+      // }
     } else {
       var index = details.indexOf(key);
       if (index > -1) { details.splice(index, 1); }
@@ -91,26 +109,8 @@ class CreateScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'stretch',
-    backgroundColor: 'rgba(255,255,255,1)',
-  },
-  addImageContainer: {
-    backgroundColor: 'rgba(0,0,0,.03)',
-  },
-  addImage: {
-    paddingTop: 30,
-    paddingHorizontal: 20,
-  },
-  photoPlaceholderContainer: {
-    alignItems: 'center',
-    height: 80,
-  },
-  photoPlaceholder: {
-    backgroundColor: 'rgba(42,126,211,.1)',
-    height: 80,
-    width: 80,
+    paddingVertical: 15,
+    backgroundColor: '#fff',
   },
   plateInput: {
     paddingHorizontal: 20,
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default graphql(CREATE_REPORT_MUTATION, {
-  name: 'createReport',
-})(CreateScreen)
+export default compose(
+  graphql(CREATE_REPORT_MUTATION, { name: 'createReport' }),
+  graphql(DETAIL_TYPES_QUERY, { name: 'detailTypes' }),
+)(CreateScreen);
