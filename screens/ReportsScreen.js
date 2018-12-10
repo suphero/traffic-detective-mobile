@@ -1,16 +1,16 @@
 import React from 'react'
-import Report from '../components/Report'
-import { graphql } from 'react-apollo'
+import { compose, graphql } from 'react-apollo'
 import {
   View,
   TouchableHighlight,
-  ListView,
   Modal,
   StyleSheet,
   Text,
 } from 'react-native';
+import { List, ListItem } from 'react-native-elements'
 import CreateScreen from './CreateScreen';
 import REPORTS_QUERY from '../graphql/reports';
+import DELETE_REPORT_MUTATION from '../graphql/deleteReport';
 import Loading from '../components/Loading';
 
 class ReportsScreen extends React.Component {
@@ -18,21 +18,21 @@ class ReportsScreen extends React.Component {
     title: 'Raporlarım',
   };
 
+  list = [
+    {
+      title: 'Appointments',
+      icon: 'av-timer'
+    },
+    {
+      title: 'Trips',
+      icon: 'flight-takeoff'
+    },
+  ];
+
   constructor(props) {
     super(props)
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
     this.state = {
-      dataSource: ds.cloneWithRows([]),
       modalVisible: false,
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.reportsQuery.loading && !nextProps.reportsQuery.error) {
-      const { dataSource } = this.state
-      this.setState({
-        dataSource: dataSource.cloneWithRows(nextProps.reportsQuery.report_user),
-      })
     }
   }
 
@@ -55,14 +55,18 @@ class ReportsScreen extends React.Component {
             }}
           />
         </Modal>
-
-        <ListView
-          enableEmptySections={true}
-          dataSource={this.state.dataSource}
-          renderRow={report => (
-            <Report plate={report.plate} />
-          )}
-        />
+        <List>
+          {
+            this.props.reportsQuery.report_user.map((item) => (
+              <ListItem
+                key={item._id}
+                title={item.plate}
+                rightIcon={{name: 'delete'}}
+                onPressRightIcon={() => this.deleteReport(item._id)}
+              />
+            ))
+          }
+        </List>
         <TouchableHighlight
           style={styles.createReportButtonContainer}
           onPress={this._createReport}
@@ -76,6 +80,13 @@ class ReportsScreen extends React.Component {
   _createReport = () => {
     // this.props.router.push('/create');
     this.setState({ modalVisible: true })
+  }
+
+  deleteReport = async(_id) => {
+    await this.props.deleteReport({
+      variables: { _id },
+    });
+    this.props.reportsQuery.refetch()
   }
 }
 
@@ -99,9 +110,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default graphql(REPORTS_QUERY, {
-  name: 'reportsQuery',
-  options: {
-    fetchPolicy: 'network-only',
-  },
-})(ReportsScreen)
+export default compose(
+  graphql(DELETE_REPORT_MUTATION, { name: 'deleteReport' }),
+  graphql(REPORTS_QUERY, { name: 'reportsQuery' }),
+)(ReportsScreen);
