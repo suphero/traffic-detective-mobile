@@ -9,12 +9,28 @@ import {
 } from 'react-native';
 import CREATE_REPORT_MUTATION from '../graphql/createReport';
 import FormMessage from '../components/FormMessage';
+import CreateDetail from '../components/CreateDetail';
 
 class CreateScreen extends React.Component {
   state = {
     plate: '',
-    details: ['HORN', 'FAST'],
+    details: [],
     error: ''
+  }
+
+  details = [
+    {title:'Korna', type:'HORN'},
+    {title:'Hız', type:'FAST'},
+  ];
+
+  RenderCreateDetails() {
+    return (
+      this.details.map(detail => (
+        <CreateDetail title={detail.title} key={detail.type} type={detail.type}
+          onPress={(type, checked) => this.handleDetailSelection(type, checked) }
+        />
+      ))
+    );
   }
 
   render() {
@@ -27,6 +43,7 @@ class CreateScreen extends React.Component {
           value={this.state.plate}
         />
         <FormMessage message={this.state.error}/>
+        {this.RenderCreateDetails()}
         <View style={styles.buttons}>
           <TouchableHighlight
             style={styles.cancelButton}
@@ -56,6 +73,18 @@ class CreateScreen extends React.Component {
     } catch (e) {
       this.setState({error: e.message});
     }
+  }
+
+  handleDetailSelection = (key, checked) => {
+    let details = this.state.details;
+    if (checked) {
+      details.push(key);
+    } else {
+      var index = details.indexOf(key);
+      if (index > -1) { details.splice(index, 1); }
+    }
+    this.setState({details});
+    console.log(this.state.details);
   }
 }
 
@@ -115,7 +144,6 @@ const styles = StyleSheet.create({
     color: 'rgba(0,0,0,.5)',
   },
 })
-
 
 export default graphql(CREATE_REPORT_MUTATION, {
   name: 'createReport',
