@@ -7,7 +7,7 @@ import { saveToken } from '../utilities';
 
 class SignupScreen extends React.Component {
 	static navigationOptions = {
-    	title: 'Register',
+    	title: 'Üyelik',
   	};
 
   constructor(props) {
@@ -78,7 +78,7 @@ class SignupScreen extends React.Component {
           <Form>
 		        <FormMessage message={error} />
             <Item floatingLabel error={emailError}>
-              <Label>Email</Label>
+              <Label>E-Posta</Label>
               <Input
                 onChangeText={email => this.setState({email})}
                 keyboardType="email-address"
@@ -87,7 +87,7 @@ class SignupScreen extends React.Component {
               />
             </Item>
             <Item floatingLabel error={passwordError}>
-              <Label>Password</Label>
+              <Label>Şifre</Label>
               <Input
                 onChangeText={password => this.setState({password})}
                 autoCapitalize="none"
@@ -96,7 +96,7 @@ class SignupScreen extends React.Component {
               />
             </Item>
             <Item floatingLabel error={confirmPasswordError}>
-              <Label>Confirm Password</Label>
+              <Label>Şifre Tekrarı</Label>
               <Input
                 onChangeText={confirmPassword => this.setState({confirmPassword})}
                 autoCapitalize="none"
@@ -106,7 +106,7 @@ class SignupScreen extends React.Component {
             </Item>
           </Form>
           <Button block onPress={this.handleSubmit}>
-            <Text>Sign Up</Text>
+            <Text>Üye Ol</Text>
           </Button>
         </Content>
       </Container>

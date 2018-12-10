@@ -33,7 +33,6 @@ class CreateScreen extends React.Component {
       this.setState({
         dataSource: dataSource.cloneWithRows(nextProps.detailTypes.report_detail_types),
       })
-      console.log(dataSource);
     }
   }
 
@@ -46,7 +45,7 @@ class CreateScreen extends React.Component {
       <ScrollView style={styles.container}>
         <TextInput
           style={styles.plateInput}
-          placeholder="Type Plate..."
+          placeholder="Plaka girin..."
           onChangeText={text => this.setState({ plate: text })}
           value={this.state.plate}
         />
@@ -64,13 +63,13 @@ class CreateScreen extends React.Component {
             style={styles.cancelButton}
             onPress={() => this.props.onComplete()}
           >
-            <Text style={styles.cancelButtonText}>Cancel</Text>
+            <Text style={styles.cancelButtonText}>Vazgeç</Text>
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.saveButton}
             onPress={() => this._createReport()}
           >
-            <Text style={styles.saveButtonText}>Create Report</Text>
+            <Text style={styles.saveButtonText}>Raporla</Text>
           </TouchableHighlight>
         </View>
       </ScrollView>
@@ -94,15 +93,11 @@ class CreateScreen extends React.Component {
     let details = this.state.details;
     if (checked) {
       details.push(key);
-      // if(details.length > 3) {
-      //   details.shift();
-      // }
     } else {
       var index = details.indexOf(key);
       if (index > -1) { details.splice(index, 1); }
     }
     this.setState({details});
-    console.log(this.state.details);
   }
 }
 

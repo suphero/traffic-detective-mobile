@@ -12,7 +12,7 @@ const ReportsStack = createStackNavigator({
 });
 
 ReportsStack.navigationOptions = {
-  tabBarLabel: 'Reports',
+  tabBarLabel: 'Raporlarım',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -40,7 +40,7 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Ayarlar',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -51,6 +51,6 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   ReportsStack,
-  StatisticsStack,
+  // StatisticsStack,
   SettingsStack,
 });

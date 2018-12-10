@@ -10,7 +10,7 @@ import "graphql";
 
 class LoginScreen extends React.Component {
 	static navigationOptions = {
-    	title: 'Login',
+    	title: 'Giriş',
   	};
 
   constructor(props) {
@@ -67,7 +67,7 @@ class LoginScreen extends React.Component {
           <Form>
             <FormMessage message={error} />
             <Item floatingLabel error={emailError}>
-              <Label>Email</Label>
+              <Label>E-Posta</Label>
               <Input
                 onChangeText={email => this.setState({email})}
                 keyboardType="email-address"
@@ -76,7 +76,7 @@ class LoginScreen extends React.Component {
               />
             </Item>
             <Item floatingLabel error={passwordError}>
-              <Label>Password</Label>
+              <Label>Şifre</Label>
               <Input
                 onChangeText={password => this.setState({password})}
                 autoCapitalize="none"
@@ -86,7 +86,7 @@ class LoginScreen extends React.Component {
             </Item>
           </Form>
           <Button block onPress={this.handleSubmit}>
-            <Text>Sign In</Text>
+            <Text>Giriş Yap</Text>
           </Button>
         </Content>
       </Container>

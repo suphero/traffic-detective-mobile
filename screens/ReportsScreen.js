@@ -15,7 +15,7 @@ import Loading from '../components/Loading';
 
 class ReportsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Reports',
+    title: 'Raporlarım',
   };
 
   constructor(props) {
@@ -67,7 +67,7 @@ class ReportsScreen extends React.Component {
           style={styles.createReportButtonContainer}
           onPress={this._createReport}
         >
-          <Text style={styles.createReportButton}>Create Report</Text>
+          <Text style={styles.createReportButton}>Yeni Rapor</Text>
         </TouchableHighlight>
       </View>
     )

@@ -4,14 +4,14 @@ import { removeToken } from '../utilities';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Settings',
+    title: 'Ayarlar',
   };
 
   render() {
     return (
       <View>
         <Button block onPress={this.handleSignout}>
-          <Text>Sign Out</Text>
+          <Text>Çıkış Yap</Text>
         </Button>
       </View>
     )

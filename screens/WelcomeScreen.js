@@ -3,7 +3,7 @@ import { Container, Button, Content, Text } from 'native-base';
 
 export default class WelcomeScreen extends React.Component {
 	static navigationOptions = {
-    	title: 'Welcome',
+    	title: 'Hoş Geldiniz',
   	};
 
   render() {
@@ -13,10 +13,10 @@ export default class WelcomeScreen extends React.Component {
       <Container>
         <Content>
           <Button full transparent onPress={() => navigation.navigate('Login')}>
-            <Text>Sign In</Text>
+            <Text>Giriş Yap</Text>
           </Button>
           <Button full transparent onPress={() => navigation.navigate('Signup')}>
-            <Text>Sign Up</Text>
+            <Text>Üye Ol</Text>
           </Button>
         </Content>
       </Container>
