@@ -1,53 +1,32 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
 import {
+  Text,
   View,
   TextInput,
-  Image,
-  Text,
   StyleSheet,
   TouchableHighlight,
-} from 'react-native'
+} from 'react-native';
+import CREATE_REPORT_MUTATION from '../graphql/createReport';
+import FormMessage from '../components/FormMessage';
 
 class CreateScreen extends React.Component {
   state = {
-    description: '',
-    imageUrl: '',
+    plate: '',
+    details: ['HORN', 'FAST'],
+    error: ''
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.addImageContainer}>
-          <View style={styles.addImage}>
-            <View style={styles.photoPlaceholderContainer}>
-              {this.state.imageUrl.length > 0 ? (
-                <Image
-                  source={{ uri: this.state.imageUrl }}
-                  style={{ height: 80, width: 80 }}
-                  resizeMode="contain"
-                />
-              ) : (
-                <View style={styles.photoPlaceholder} />
-              )}
-            </View>
-            <TextInput
-              style={styles.imageUrlInput}
-              placeholder="Paste your image URL here..."
-              onChangeText={text => this.setState({ imageUrl: text })}
-              value={this.state.imageUrl}
-              placeholderTextColor="rgba(42,126,211,.5)"
-            />
-          </View>
-        </View>
         <TextInput
-          style={styles.descriptionInput}
-          placeholder="Type a description..."
-          onChangeText={text => this.setState({ description: text })}
-          value={this.state.description}
+          style={styles.plateInput}
+          placeholder="Type Plate..."
+          onChangeText={text => this.setState({ plate: text })}
+          value={this.state.plate}
         />
-
+        <FormMessage message={this.state.error}/>
         <View style={styles.buttons}>
           <TouchableHighlight
             style={styles.cancelButton}
@@ -57,21 +36,26 @@ class CreateScreen extends React.Component {
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.saveButton}
-            onPress={() => this._createPost()}
+            onPress={() => this._createReport()}
           >
-            <Text style={styles.saveButtonText}>Create Post</Text>
+            <Text style={styles.saveButtonText}>Create Report</Text>
           </TouchableHighlight>
         </View>
       </View>
     )
   }
 
-  _createPost = async () => {
-    const { description, imageUrl } = this.state
-    await this.props.createPostMutation({
-      variables: { description, imageUrl },
-    })
-    this.props.onComplete()
+  _createReport = async () => {
+    try {
+      const { plate, details } = this.state
+      this.setState({error: ''});
+      await this.props.createReport({
+        variables: { plate, details },
+      })
+      this.props.onComplete()
+    } catch (e) {
+      this.setState({error: e.message});
+    }
   }
 }
 
@@ -99,11 +83,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
   },
-  imageUrlInput: {
-    color: 'rgba(42,126,211,1)',
-    height: 60,
-  },
-  descriptionInput: {
+  plateInput: {
     paddingHorizontal: 20,
     height: 100,
     fontSize: 20,
@@ -136,16 +116,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const CREATE_POST_MUTATION = gql`
-  mutation CreatePostMutation($description: String!, $imageUrl: String!) {
-    createPost(description: $description, imageUrl: $imageUrl) {
-      id
-      description
-      imageUrl
-    }
-  }
-`
 
-export default graphql(CREATE_POST_MUTATION, {
-  name: 'createPostMutation', // name of the injected prop: this.props.createPostMutation...
+export default graphql(CREATE_REPORT_MUTATION, {
+  name: 'createReport',
 })(CreateScreen)
