@@ -32,7 +32,7 @@ class CreateScreen extends React.Component {
     }
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} ref='_scrollView'>
         <TextInput
           style={styles.plateInput}
           placeholder="Plaka girin..."
@@ -77,6 +77,7 @@ class CreateScreen extends React.Component {
       this.props.onComplete()
     } catch (e) {
       this.setState({error: e.message});
+      this.refs._scrollView.scrollTo({x: 0, y: 0, animated: true});
     }
   }
 
@@ -96,7 +97,6 @@ class CreateScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 15,
     backgroundColor: '#fff',
   },
   plateInput: {
