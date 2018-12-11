@@ -9,8 +9,8 @@ class CreateDetail extends React.Component {
   defaultUncheckedIcon = 'circle-o';
   defaultUncheckedColor = '#bfbfbf';
 
-  limitUncheckedIcon = 'times-circle-o';
-  limitUncheckedColor = '#ff0000';
+  disableUncheckedIcon = 'times-circle-o';
+  disableUncheckedColor = '#ff0000';
 
   state = {
     checked: false,
@@ -20,7 +20,7 @@ class CreateDetail extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.disable) {
-      this.setState({uncheckedIcon: this.limitUncheckedIcon, uncheckedColor: this.limitUncheckedColor});
+      this.setState({uncheckedIcon: this.disableUncheckedIcon, uncheckedColor: this.disableUncheckedColor});
     } else {
       this.setState({uncheckedIcon: this.defaultUncheckedIcon, uncheckedColor: this.defaultUncheckedColor});
     }
