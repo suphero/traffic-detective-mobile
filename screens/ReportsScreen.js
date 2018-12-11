@@ -18,17 +18,6 @@ class ReportsScreen extends React.Component {
     title: 'Raporlarım',
   };
 
-  list = [
-    {
-      title: 'Appointments',
-      icon: 'av-timer'
-    },
-    {
-      title: 'Trips',
-      icon: 'flight-takeoff'
-    },
-  ];
-
   constructor(props) {
     super(props)
     this.state = {

@@ -9,6 +9,7 @@ import {
   ListView,
   ScrollView
 } from 'react-native';
+import { List } from 'react-native-elements'
 import CREATE_REPORT_MUTATION from '../graphql/createReport';
 import DETAIL_TYPES_QUERY from '../graphql/detailTypes';
 import FormMessage from '../components/FormMessage';
@@ -18,21 +19,10 @@ import Loading from '../components/Loading';
 class CreateScreen extends React.Component {
   constructor(props) {
     super(props)
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
     this.state = {
       plate: '',
       details: [],
       error: '',
-      dataSource: ds.cloneWithRows([])
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.detailTypes.loading && !nextProps.detailTypes.error) {
-      const { dataSource } = this.state
-      this.setState({
-        dataSource: dataSource.cloneWithRows(nextProps.detailTypes.report_detail_types),
-      })
     }
   }
 
@@ -50,14 +40,15 @@ class CreateScreen extends React.Component {
           value={this.state.plate}
         />
         <FormMessage message={this.state.error}/>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={detail => (
-            <CreateDetail title={detail.name} key={detail._id} type={detail._id}
+        <List>
+          {
+            this.props.detailTypes.report_detail_types.map((detail) => (
+              <CreateDetail title={detail.name} key={detail._id} type={detail._id}
               onPress={(type, checked) => this.handleDetailSelection(type, checked) }
             />
-          )}
-        />
+            ))
+          }
+        </List>
         <View style={styles.buttons}>
           <TouchableHighlight
             style={styles.cancelButton}
