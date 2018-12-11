@@ -1,12 +1,10 @@
 import React from 'react'
 import { compose, graphql } from 'react-apollo'
 import {
-  View,
   Button,
-  TouchableHighlight,
   Modal,
   StyleSheet,
-  Text,
+  ScrollView
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements'
 import CreateScreen from './CreateScreen';
@@ -44,7 +42,7 @@ class ReportsScreen extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Modal
           animationType="slide"
           transparent={true}
@@ -69,7 +67,7 @@ class ReportsScreen extends React.Component {
             ))
           }
         </List>
-      </View>
+      </ScrollView>
     )
   }
 
@@ -89,20 +87,6 @@ class ReportsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 22,
-  },
-  createReportButtonContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  createReportButton: {
-    backgroundColor: 'rgba(39,174,96,1)',
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 22,
-    height: 60,
-    width: 480,
-    paddingTop: 18,
   },
 })
 

@@ -6,7 +6,6 @@ import {
   TextInput,
   StyleSheet,
   TouchableHighlight,
-  ListView,
   ScrollView
 } from 'react-native';
 import { List } from 'react-native-elements'
