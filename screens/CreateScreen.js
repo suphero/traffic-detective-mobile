@@ -22,6 +22,7 @@ class CreateScreen extends React.Component {
       plate: '',
       details: [],
       error: '',
+      detailsLength: 0
     }
   }
 
@@ -42,7 +43,7 @@ class CreateScreen extends React.Component {
         <List>
           {
             this.props.detailTypes.report_detail_types.map((detail) => (
-              <CreateDetail title={detail.name} key={detail._id} type={detail._id}
+              <CreateDetail title={detail.name} key={detail._id} type={detail._id} detailsLength={this.state.detailsLength}
               onPress={(type, checked) => this.handleDetailSelection(type, checked) }
             />
             ))
@@ -87,7 +88,8 @@ class CreateScreen extends React.Component {
       var index = details.indexOf(key);
       if (index > -1) { details.splice(index, 1); }
     }
-    this.setState({details});
+    let detailsLength = details.length;
+    this.setState({details, detailsLength});
   }
 }
 
