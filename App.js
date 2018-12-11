@@ -7,7 +7,7 @@ import { setContext } from 'apollo-link-context';
 import Root from './Root';
 import { getToken } from './utilities';
 
-const httpLink = new HttpLink({ uri: 'http://192.168.1.244:3000/graphql' })
+const httpLink = new HttpLink({ uri: 'http://172.20.10.3:3000/graphql' })
 const authLink = setContext(async (_, { headers }) => {
   const token = await getToken();
   return {

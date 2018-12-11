@@ -2,6 +2,7 @@ import React from 'react'
 import { compose, graphql } from 'react-apollo'
 import {
   View,
+  Button,
   TouchableHighlight,
   Modal,
   StyleSheet,
@@ -14,8 +15,16 @@ import DELETE_REPORT_MUTATION from '../graphql/deleteReport';
 import Loading from '../components/Loading';
 
 class ReportsScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Raporlarım',
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: 'Raporlarım',
+      headerRight: (
+        <Button
+          onPress={() => navigation.state.params._createReport()}
+          title="Ekle"
+        />
+      ),
+    };
   };
 
   constructor(props) {
@@ -23,6 +32,10 @@ class ReportsScreen extends React.Component {
     this.state = {
       modalVisible: false,
     }
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({ _createReport: this._createReport });
   }
 
   render() {
@@ -56,12 +69,6 @@ class ReportsScreen extends React.Component {
             ))
           }
         </List>
-        <TouchableHighlight
-          style={styles.createReportButtonContainer}
-          onPress={this._createReport}
-        >
-          <Text style={styles.createReportButton}>Yeni Rapor</Text>
-        </TouchableHighlight>
       </View>
     )
   }
