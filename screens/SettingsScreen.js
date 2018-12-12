@@ -12,7 +12,6 @@ export default class SettingsScreen extends React.Component {
     return (
       <View>
         <Button
-          raised
           icon={{name: 'power-settings-new'}}
           title='Çıkış Yap'
           onPress={this.handleSignout}

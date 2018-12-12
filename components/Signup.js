@@ -85,6 +85,7 @@ class Signup extends React.Component {
         />
 
         <Button
+          icon={{name: 'person-add'}}
           title='Üye Ol'
           onPress={this.handleSubmit}
           />

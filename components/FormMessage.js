@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-	StyleSheet,
-} from 'react-native';
-import {
-	Icon,
 	Text,
 	View,
-} from 'native-base';
+	StyleSheet,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
 	errorContainer: {
@@ -27,7 +25,7 @@ const FormMessage = (props) => {
 	if (props.message) {
 		return (
 			<View style={styles.errorContainer}>
-				<Icon name="ios-warning" style={[styles.error, style]} />
+              	<Ionicons name="ios-warning" size={26} style={[styles.error, style]}  />
 				<Text style={[styles.error, style]}>
 					{props.message}
 				</Text>

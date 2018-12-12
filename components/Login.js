@@ -70,6 +70,7 @@ class Login extends React.Component {
         />
 
         <Button
+          icon={{name: 'exit-to-app'}}
           title='Giriş Yap'
           onPress={this.handleSubmit}
           />
