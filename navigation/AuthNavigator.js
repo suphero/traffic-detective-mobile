@@ -1,13 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 
-import WelcomeScreen from '../screens/WelcomeScreen';
-import LoginScreen from '../screens/LoginScreen';
-import SignupScreen from '../screens/SignupScreen';
+import AuthScreen from '../screens/AuthScreen';
 
 export default createStackNavigator({
-  Welcome: WelcomeScreen,
-  Login: LoginScreen,
-  Signup: SignupScreen
-}, {
-  initialRouteName: 'Welcome'
+  Main: AuthScreen,
 });
