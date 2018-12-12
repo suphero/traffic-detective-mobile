@@ -6,23 +6,22 @@ class CreateDetail extends React.Component {
   disable = false;
 
   checkedIcon = 'check-circle-o';
-  defaultUncheckedIcon = 'circle-o';
-  defaultUncheckedColor = '#bfbfbf';
+  checkedColor = '#ff0000';
+  uncheckedColor = '#bfbfbf';
 
+  defaultUncheckedIcon = 'circle-o';
   disableUncheckedIcon = 'times-circle-o';
-  disableUncheckedColor = '#ff0000';
 
   state = {
     checked: false,
     uncheckedIcon: this.defaultUncheckedIcon,
-    uncheckedColor: this.defaultUncheckedColor
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.disable) {
-      this.setState({uncheckedIcon: this.disableUncheckedIcon, uncheckedColor: this.disableUncheckedColor});
+      this.setState({uncheckedIcon: this.disableUncheckedIcon});
     } else {
-      this.setState({uncheckedIcon: this.defaultUncheckedIcon, uncheckedColor: this.defaultUncheckedColor});
+      this.setState({uncheckedIcon: this.defaultUncheckedIcon});
     }
   }
 
@@ -31,8 +30,9 @@ class CreateDetail extends React.Component {
       <CheckBox
         title={this.props.title}
         checkedIcon={this.checkedIcon}
+        checkedColor={this.checkedColor}
         uncheckedIcon={this.state.uncheckedIcon}
-        uncheckedColor={this.state.uncheckedColor}
+        uncheckedColor={this.uncheckedColor}
         checked={this.state.checked}
         onPress={() => {
           if (this.props.disable && !this.state.checked) return;
