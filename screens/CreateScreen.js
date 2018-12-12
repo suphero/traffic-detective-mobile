@@ -14,6 +14,7 @@ import DETAIL_TYPES_QUERY from '../graphql/detailTypes';
 import FormMessage from '../components/FormMessage';
 import CreateDetail from '../components/CreateDetail';
 import Loading from '../components/Loading';
+import { BackHandler } from 'react-native';
 
 class CreateScreen extends React.Component {
   // componentDidMount() {
@@ -24,12 +25,25 @@ class CreateScreen extends React.Component {
 
   constructor(props) {
     super(props)
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     this.state = {
       plate: '',
       details: [],
       error: '',
       disableDetail: false
     }
+  }
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  handleBackButtonClick() {
+    this.props.onComplete();
+    return true;
   }
 
   render() {
