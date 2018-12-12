@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Button, Text } from 'native-base';
+import { View } from 'react-native';
+import { Button } from 'react-native-elements';
 import { removeToken } from '../utilities';
 
 export default class SettingsScreen extends React.Component {
@@ -10,9 +11,12 @@ export default class SettingsScreen extends React.Component {
   render() {
     return (
       <View>
-        <Button block onPress={this.handleSignout}>
-          <Text>Çıkış Yap</Text>
-        </Button>
+        <Button
+          raised
+          icon={{name: 'power-settings-new'}}
+          title='Çıkış Yap'
+          onPress={this.handleSignout}
+          />
       </View>
     )
   }

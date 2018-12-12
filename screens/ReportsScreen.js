@@ -1,11 +1,11 @@
 import React from 'react'
 import { compose, graphql } from 'react-apollo'
 import {
-  Button,
   Modal,
   StyleSheet,
   ScrollView
 } from 'react-native';
+import { Button } from 'react-native-elements';
 import { List, ListItem } from 'react-native-elements'
 import CreateScreen from './CreateScreen';
 import REPORTS_QUERY from '../graphql/reports';
@@ -19,6 +19,7 @@ class ReportsScreen extends React.Component {
       headerRight: (
         <Button
           onPress={() => navigation.state.params._createReport()}
+          icon={{name: 'add'}}
           title="Ekle"
         />
       ),
