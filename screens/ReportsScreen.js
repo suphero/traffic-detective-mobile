@@ -29,6 +29,7 @@ class ReportsScreen extends React.Component {
     super(props)
     this.state = {
       modalVisible: false,
+      selectedReport: {}
     }
   }
 
@@ -53,6 +54,7 @@ class ReportsScreen extends React.Component {
               this.props.reportsQuery.refetch()
               this.setState({ modalVisible: false })
             }}
+            report={this.state.selectedReport}
           />
         </Modal>
         <List>
@@ -63,6 +65,7 @@ class ReportsScreen extends React.Component {
                 title={item.plate}
                 rightIcon={{name: 'delete'}}
                 onPressRightIcon={() => this.deleteReport(item._id)}
+                // onPress={() => this._createReport(item._id)}
               />
             ))
           }
@@ -71,9 +74,14 @@ class ReportsScreen extends React.Component {
     )
   }
 
-  _createReport = () => {
-    // this.props.router.push('/create');
-    this.setState({ modalVisible: true })
+  _createReport = (reportId) => {
+    let selectedReport = null;
+    if (reportId) {
+      selectedReport = this.props.reportsQuery.report_user.find(report => {
+        return report._id === reportId;
+      })
+    }
+    this.setState({ modalVisible: true, selectedReport })
   }
 
   deleteReport = async(_id) => {

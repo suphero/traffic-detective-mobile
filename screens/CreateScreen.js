@@ -16,6 +16,12 @@ import CreateDetail from '../components/CreateDetail';
 import Loading from '../components/Loading';
 
 class CreateScreen extends React.Component {
+  // componentDidMount() {
+  //   if (this.props.report) {
+  //     console.log(this.props.report)
+  //   }
+  // }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -81,12 +87,12 @@ class CreateScreen extends React.Component {
     }
   }
 
-  handleDetailSelection = (key, checked) => {
+  handleDetailSelection = (type, checked) => {
     let details = this.state.details;
     if (checked) {
-      details.push(key);
+      details.push(type);
     } else {
-      var index = details.indexOf(key);
+      var index = details.indexOf(type);
       if (index > -1) { details.splice(index, 1); }
     }
     const disableDetail = details.length >= 3;

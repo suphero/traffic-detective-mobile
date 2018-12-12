@@ -5,6 +5,7 @@ const REPORTS_QUERY = gql`
     report_user {
       _id
       plate
+      details
     }
   }
 `
