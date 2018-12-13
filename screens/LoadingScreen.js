@@ -18,10 +18,10 @@ class LoadingScreen extends React.Component {
       }
       const { data } = await this.props.verify_token(token);
       const isTokenValid = data.verify_token.success;
-      if (!isTokenValid) removeToken();
+      if (!isTokenValid) await removeToken();
       navigation.navigate(isTokenValid ? 'Main' : 'Auth');
     } catch (error) {
-      removeToken();
+      await removeToken();
       return navigation.navigate('Auth');
     }
   }
