@@ -38,7 +38,7 @@ class CreateDetail extends React.Component {
           if (this.props.disable && !this.state.checked) return;
           const checked = !this.state.checked;
           this.setState({checked});
-          this.props.onPress(this.props.type, checked);
+          this.props.onPress(checked);
         }}
       />
     )
@@ -47,13 +47,11 @@ class CreateDetail extends React.Component {
 
 CreateDetail.propTypes = {
 	title: PropTypes.string,
-	type: PropTypes.string,
   disable: PropTypes.bool
 };
 
 CreateDetail.defaultProps = {
 	title: '',
-	type: '',
   disable: false
 };
 
