@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { CheckBox } from 'react-native-elements'
 
 class CreateDetail extends React.Component {
-  disable = false;
-
   checkedIcon = 'check-circle-o';
   checkedColor = '#ff0000';
   uncheckedColor = '#bfbfbf';
@@ -18,7 +16,7 @@ class CreateDetail extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.disable) {
+    if (nextProps.disableCheck) {
       this.setState({uncheckedIcon: this.disableUncheckedIcon});
     } else {
       this.setState({uncheckedIcon: this.defaultUncheckedIcon});
@@ -35,7 +33,7 @@ class CreateDetail extends React.Component {
         uncheckedColor={this.uncheckedColor}
         checked={this.state.checked}
         onPress={() => {
-          if (this.props.disable && !this.state.checked) return;
+          if (this.props.disableCheck && !this.state.checked) return;
           const checked = !this.state.checked;
           this.setState({checked});
           this.props.onPress(checked);
@@ -47,12 +45,12 @@ class CreateDetail extends React.Component {
 
 CreateDetail.propTypes = {
 	title: PropTypes.string,
-  disable: PropTypes.bool
+  disableCheck: PropTypes.bool
 };
 
 CreateDetail.defaultProps = {
 	title: '',
-  disable: false
+  disableCheck: false
 };
 
 export default CreateDetail;

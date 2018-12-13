@@ -63,7 +63,7 @@ class CreateScreen extends React.Component {
         <List>
           {
             this.props.detailTypes.report_detail_types.map((detail) => (
-              <CreateDetail title={detail.name} key={detail._id} type={detail._id} disable={this.state.disableDetail}
+              <CreateDetail title={detail.name} key={detail._id} type={detail._id} disableCheck={this.state.disableDetail}
               onPress={(checked) => this.handleDetailSelection(detail._id, checked) }
             />
             ))
