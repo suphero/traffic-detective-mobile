@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "traffic-monster",
+    "name": "Trafik Canavarı",
     "slug": "traffic-monster",
     "privacy": "public",
     "sdkVersion": "31.0.0",
@@ -22,7 +22,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.harunsokullu.trafficmonster",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.harunsokullu.trafficmonster"
     },
     "description": ""
   }
