@@ -111,7 +111,6 @@ class CreateScreen extends React.Component {
     }
     const disableDetail = details.length >= 3;
     this.setState({details, disableDetail});
-    console.log(details);
   }
 }
 
