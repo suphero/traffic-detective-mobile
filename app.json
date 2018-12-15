@@ -23,6 +23,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.harunsokullu.trafficdetective",
+      "icon": "./assets/images/icon.ios.jpg",
       "supportsTablet": true
     },
     "android": {
