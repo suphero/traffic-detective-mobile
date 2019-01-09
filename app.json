@@ -27,7 +27,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.harunsokullu.trafficdetective"
+      "package": "com.harunsokullu.trafficdetective",
+      "permissions": []
     },
     "description": ""
   }
