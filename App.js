@@ -7,7 +7,7 @@ import { setContext } from 'apollo-link-context';
 import Root from './Root';
 import { getToken } from './utilities';
 
-const httpLink = new HttpLink({ uri: 'https://traffic-monster-prod.heroku.harunsokullu.com/graphql' })
+const httpLink = new HttpLink({ uri: 'https://traffic-detective-api.netlify.com/.netlify/functions/graphql' })
 const authLink = setContext(async (_, { headers }) => {
   const token = await getToken();
   return {

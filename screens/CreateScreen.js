@@ -33,7 +33,7 @@ class CreateScreen extends React.Component {
       disableDetail: false
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 

@@ -15,7 +15,7 @@ class CreateDetail extends React.Component {
     uncheckedIcon: this.defaultUncheckedIcon,
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     if (nextProps.disableCheck) {
       this.setState({uncheckedIcon: this.disableUncheckedIcon});
     } else {
