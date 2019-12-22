@@ -28,7 +28,7 @@
     },
     "android": {
       "package": "com.harunsokullu.trafficdetective",
-      "versionCode": 2,
+      "versionCode": 3,
       "permissions": []
     },
     "description": ""
