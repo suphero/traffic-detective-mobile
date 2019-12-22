@@ -33,6 +33,5 @@
     "babel-preset-expo": "~8.0.0",
     "jest": "^23.6.0",
     "jest-expo": "^31.0.0"
-  },
-  "private": true
+  }
 }
