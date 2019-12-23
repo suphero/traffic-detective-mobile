@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "3.0.0",
+    "version": "4.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -28,7 +28,7 @@
     },
     "android": {
       "package": "com.harunsokullu.trafficdetective",
-      "versionCode": 3,
+      "versionCode": 4,
       "permissions": []
     },
     "description": ""
