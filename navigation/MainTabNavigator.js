@@ -4,7 +4,6 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import ReportsScreen from '../screens/ReportsScreen';
-import StatisticsScreen from '../screens/StatisticsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const ReportsStack = createStackNavigator({
@@ -17,20 +16,6 @@ ReportsStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={Platform.OS === 'ios' ? 'ios-paper' : 'md-paper'}
-    />
-  ),
-};
-
-const StatisticsStack = createStackNavigator({
-  Stats: StatisticsScreen,
-});
-
-StatisticsStack.navigationOptions = {
-  tabBarLabel: 'Stats',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-stats' : 'md-stats'}
     />
   ),
 };
@@ -51,6 +36,5 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   ReportsStack,
-  // StatisticsStack,
   SettingsStack,
 });

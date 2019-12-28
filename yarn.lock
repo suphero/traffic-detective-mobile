@@ -1495,13 +1495,6 @@
     split "^1.0.1"
     stream "^0.0.2"
 
-"@expo/samples@~36.0.0":
-  version "36.0.0"
-  resolved "https://registry.yarnpkg.com/@expo/samples/-/samples-36.0.0.tgz#74b7461d9b7a5c18acf85d4805b35bc242ce5712"
-  integrity sha512-Bocouf5+8JqbADU8m2pzP41yiI7S4e9xr4CYNLJ8+it5P2pgnubeMKCavu4hi8AxiT3kEOHktx/bV2snh1nYQA==
-  dependencies:
-    react-native-platform-touchable "^1.1.1"
-
 "@expo/schemer@^1.3.2":
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/@expo/schemer/-/schemer-1.3.2.tgz#8ba548669fc1a35e584f45b7d6cb29e7dc69cda3"
@@ -11748,11 +11741,6 @@ react-native-elements@^0.19.1:
     lodash.times "^4.3.2"
     opencollective "^1.0.3"
     prop-types "^15.5.8"
-
-react-native-platform-touchable@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-native-platform-touchable/-/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
-  integrity sha1-/eSsxl7qWF0osWTQw3FqQhKaaOQ=
 
 react-native-safe-area-view@0.11.0:
   version "0.11.0"
