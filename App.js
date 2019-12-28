@@ -4,10 +4,14 @@ import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
 import { ApolloLink } from 'apollo-link';
 import { onError } from "apollo-link-error";
 import { setContext } from 'apollo-link-context';
+import fetch from 'node-fetch'
 import Root from './Root';
 import { getToken } from './utilities';
 
-const httpLink = new HttpLink({ uri: 'https://traffic-detective-api.netlify.com/.netlify/functions/graphql' })
+const httpLink = new HttpLink({
+  uri: 'https://traffic-detective-api.netlify.com/.netlify/functions/graphql',
+  fetch: fetch
+  });
 const authLink = setContext(async (_, { headers }) => {
   const token = await getToken();
   return {
