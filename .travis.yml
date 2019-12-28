@@ -3,6 +3,8 @@ language: node_js
 node_js:
   - node
   - lts/*
+os:
+  - linux
 cache:
   yarn: true
 before_script:
