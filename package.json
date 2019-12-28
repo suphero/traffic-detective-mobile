@@ -13,6 +13,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo/samples": "~36.0.0",
     "apollo-client-preset": "^1.0.8",
     "apollo-link-context": "^1.0.10",
     "apollo-link-error": "^1.1.2",
